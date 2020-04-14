@@ -41,4 +41,4 @@ jobs:
       uses: rtCamp/action-slack-notify@v2.0.0
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_TOKEN }}
-        SLACK_MESSAGE: 'Mameile'    
+        SLACK_MESSAGE: 'teste'  
