@@ -16,6 +16,7 @@ jobs:
       run: swift test -v
       
   slack:
+    needs: build
     if: failure()
     runs-on: ubuntu-latest
     steps:
