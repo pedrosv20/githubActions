@@ -16,7 +16,8 @@ jobs:
       run: swift test -v
       
   slack:
-    if: failure()
+    needs: build
+    if: build.failure()
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
