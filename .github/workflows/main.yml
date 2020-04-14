@@ -1,26 +1,17 @@
+name: ScheduledBuild
+
 on:
-  push:
   schedule:
-    - cron: '*/15 * * * *'
-name: BuildScheduled
+    - cron: '*/5 * * * *'
+
 jobs:
-  test:
-    name: Build
-    runs-on: macOS-latest
-    strategy:
-        matrix:
-          destination: ['platform=iOS Simulator,OS=13.0,name=iPhone 11']
+  build:
+
+    runs-on: macos-latest
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@master
-      - name: Cocoapods
-        run: |
-          cd James
-          pod install
-        env: 
-         destination: ${{ matrix.destination }}
-      - name: xcrun
-        run: |
-          xcrun instruments -w 'iPhone 11 (13.0)' || sleep 15
-        env:
-         destination: ${{ matrix.destination }}
+    - uses: actions/checkout@v2
+    - name: Build
+      run: swift build -v
+    - name: Run tests
+      run: swift test -v
