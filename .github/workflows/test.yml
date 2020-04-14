@@ -14,7 +14,7 @@ jobs:
       run: xcodebuild
     - name: Run tests
       run: swift test -v
-      
+  
   slack:
     needs: build
     if: failure()
@@ -30,4 +30,15 @@ jobs:
         env:
           SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
           JSON_PATH: ./slack_message.json
-    
+  
+  slackNotification:
+    needs: slack
+    name: Slack Notification
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Slack Notification
+      uses: rtCamp/action-slack-notify@v2.0.0
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_TOKEN }}
+        SLACK_MESSAGE: 'Mameile'    
